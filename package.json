@@ -1,0 +1,18 @@
+{
+  "name": "react-json",
+  "version": "0.1.0",
+  "description": "A small React component to visualise JSON, plain JavaScript objectsor arrays",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "keywords": [
+    "React",
+    "JSON"
+  ],
+  "author": "Javier Alba",
+  "license": "ISC",
+  "dependencies": {
+    "react": "^0.14.2"
+  }
+}
