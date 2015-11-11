@@ -2,6 +2,8 @@
 
 A simple React component to render data structures (objects, arrays or any other) in the browser.
 
+![alt text](https://github.com/jalba/react-data-viewer/raw/master/images/react-data-viewer.png "React-Data-Viewer")
+
 ## Usage
 
 via npm:
