@@ -1,6 +1,6 @@
 {
   "name": "react-data-viewer",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "A small React component to visualise JSON, plain JavaScript objectsor arrays",
   "main": "index.js",
   "scripts": {
@@ -10,12 +10,12 @@
     "React",
     "JSON"
   ],
-  "repository" : { 
-    "type" : "git",
-    "url" : "https://github.com/jalba/react-data-viewer.git"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jalba/react-data-viewer.git"
   },
-  "bugs": { 
-    "url" : "https://github.com/jalba/react-data-viewer/issues"
+  "bugs": {
+    "url": "https://github.com/jalba/react-data-viewer/issues"
   },
   "author": "Javier Alba",
   "license": "ISC",
