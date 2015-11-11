@@ -27,14 +27,9 @@ const downArrow = {
 
 var ReactDataViewer = React.createClass({displayName:'ReactDataViewer2',
     propTypes: {
-        data: React.PropTypes.oneOfType([
-            React.PropTypes.object,
-            React.PropTypes.array
-        ]).isRequired,
+        data: React.PropTypes.any.isRequired,
         indent: React.PropTypes.number,
-        name: React.PropTypes.string,
         expanded: React.PropTypes.bool,
-        ellipsis: React.PropTypes.number,
         className: React.PropTypes.string
     },
     getInitialState: function() {

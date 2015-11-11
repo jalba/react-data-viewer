@@ -15,6 +15,19 @@ Or you can just pull it from github and import it.
 In case you are not using something like Babel in your project, or you are simply not comfortable
 yet with ES2015 syntax, there is an ES5 version as well. Just look for the ES5 folder.
 
+## Props
+
+`data [any type, required]` this is the data structure to render, it can be an object, an array, or
+even a boolean, number or string.
+
+`indent [number, optional]` this the indentation of the items or attributes rendered. By default is
+40 pixels.
+
+`expanded [bool, optional]` this tells the component if it should be rendered open or closed. By 
+default is open.
+
+`className [string, optional]` this is an optional class name that you can add to the component.
+
 ## Tests
 very simple test suite with mocha and React shallow rendering. Just run npm test to check it out.
 
