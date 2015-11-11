@@ -1,5 +1,7 @@
 import React,{ Component } from 'react';
 
+import Link from './components/Link';
+
 const rightArrow = {
     width: 0, 
     height: 0, 
@@ -23,7 +25,7 @@ const downArrow = {
     marginTop: '7px'
 };
 
-class ReactJson extends Component {
+class ReactDataViewer extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -33,6 +35,7 @@ class ReactJson extends Component {
     }
     clickHandlerFactory({ name, expanded }) {
         return (event) => {
+            event.preventDefault();
             event.stopPropagation(); 
             const state= {};
             state[ name ] = !expanded;
@@ -44,6 +47,7 @@ class ReactJson extends Component {
         let type;
         if(obj !== null && typeof obj === 'object') type = 'Object';
         if(Array.isArray(obj)) type = 'Array';
+        if(Link.isUrl(obj) || Link.isEmail(obj)) return (<Link address={ obj } />);
         if(!type) return obj.toString ? obj.toString() : obj;
         
         return(
@@ -54,10 +58,13 @@ class ReactJson extends Component {
     }
     getObjectElement({ obj, expanded, name }) {
         const notExpanded = expanded ? '' : '...}';
-        const closingTag = !expanded ? null : <div>{ '}' }</div>;
+        const closingTag = !expanded ? null : <div style={ { marginLeft: '20px' } }>{ '}' }</div>;
         return(
-            <div onClick={ this.clickHandlerFactory({ name: name, expanded: expanded }) }>
-                <span style={ expanded ? downArrow : rightArrow } ></span>{ ' Object {' + notExpanded } 
+            <div>
+                <div onClick={ this.clickHandlerFactory({ name: name, expanded: expanded }) }>
+                    <span style={ expanded ? downArrow : rightArrow } ></span>
+                    { ' Object {' + notExpanded }
+                </div> 
                 { this.getObjectContent({ obj: obj, expanded: expanded }) }
                 { closingTag }
             </div>
@@ -65,10 +72,13 @@ class ReactJson extends Component {
     }
     getArrayElement({ obj, expanded, name }) {
         const notExpanded = expanded ? '' : (obj.length.toString() + ']');
-        const closingTag = !expanded ? null : <div>{ ']' }</div>;
+        const closingTag = !expanded ? null : <div style={ { marginLeft: '20px' } }>{ ']' }</div>;
         return(
-            <div onClick={this.clickHandlerFactory({ name: name, expanded: expanded })}>
-                <span style={ expanded ? downArrow : rightArrow } ></span>{ ' Array [' + notExpanded } 
+            <div>
+                <div onClick={ this.clickHandlerFactory({ name: name, expanded: expanded }) }>
+                    <span style={ expanded ? downArrow : rightArrow } ></span>
+                    { ' Array [' + notExpanded } 
+                </div>
                 { this.getObjectContent({ obj: obj, expanded: expanded }) }
                 { closingTag }
             </div>
@@ -76,15 +86,17 @@ class ReactJson extends Component {
     }
     getObjectContent({ obj, expanded, name }) {
         const keys = Object.keys(obj);
+        const indent = this.props.indent ? this.props.indent : 40;
         return (
             !expanded ?
             null :
-            <ul>
+            <ul style={ { listStyleType: 'none', padding: 0, marginLeft: indent+'px' } }>
                 { 
                     keys.map(key => {
                         return (
                             <li key={ key }>
-                                <div style={ { float: 'left' } }>{ key +' : '}</div> { this.getDataElement({ obj: obj[ key ], name: key }) }
+                                <span style={ { float: 'left', display: 'inline-block' } }>{ key +'  :'}</span>
+                                <span style={ { display: 'inline-block', width: '70%', marginLeft: '8px' } }>{ this.getDataElement({ obj: obj[ key ], name: key }) }</span>
                             </li>
                         );
                     })
@@ -92,21 +104,25 @@ class ReactJson extends Component {
             </ul>
         );
     }
-	render() {
+    render() {
         return (
-            <div className={ "react-object-renderer" + (this.props.className ? ' ' + this.props.className : '') }>
+            <div className={ "react-data-viewer" + (this.props.className ? ' ' + this.props.className : '') }>
                 { this.getDataElement({ obj: this.props.data, expanded: this.state.main, name: 'main' }) }
             </div>
         );
-	}
+    }
 }
 
-ReactJson.propTypes = {
-    data: React.PropTypes.object.isRequired,
+ReactDataViewer.propTypes = {
+    data: React.PropTypes.oneOfType([
+        React.PropTypes.object,
+        React.PropTypes.array
+    ]).isRequired,
     indent: React.PropTypes.number,
     name: React.PropTypes.string,
     expanded: React.PropTypes.bool,
+    ellipsis: React.PropTypes.number,
     className: React.PropTypes.string
 };
 
-export default ReactJson;
+export default ReactDataViewer;

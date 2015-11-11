@@ -1,0 +1,5 @@
+--watch
+--compilers .:babel-core/register
+--recursive
+--reporter list
+--require test/utils/document.js
